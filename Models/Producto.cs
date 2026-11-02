@@ -1,17 +1,20 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FerreteriaValdivia.Models
 {
     public class Producto
     {
+        
         [Key]
-        public string CodigoBarras { get; set; } = string.Empty;
+        [Column("CodigoBarras")]
+        public string CodigoProducto { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "El nombre es obligatorio")]
         public string Nombre { get; set; } = string.Empty;
 
-        public decimal PrecioVenta { get; set; }
+        public decimal PrecioVenta { get; set; }     
 
         public int StockMinimo { get; set; }
 
@@ -31,9 +34,9 @@ namespace FerreteriaValdivia.Models
         }
 
         // Constructor con parámetros
-        public Producto(string codigoBarras, string nombre, decimal precioVenta, int stockMinimo, int stockActual, int cantidadVendida = 0)
+        public Producto(string codigoProducto, string nombre, decimal precioVenta, int stockMinimo, int stockActual, int cantidadVendida = 0) 
         {
-            CodigoBarras = codigoBarras;
+            CodigoProducto = codigoProducto;
             Nombre = nombre;
             PrecioVenta = precioVenta;
             StockMinimo = stockMinimo;

@@ -25,7 +25,7 @@ namespace FerreteriaValdivia.Models
 
         public override bool ProcesarPago(decimal monto)
         {
-            Console.WriteLine($"[PAGO EFECTIVO]: Total a pagar: {monto:C}. Monto recibido: {MontoEntregado:C}.");
+            Console.WriteLine($"[PAGO EFECTIVO]: Total a pagar: {monto:C}. Monto recibido: {MontoEntregado:C}.");   
 
             if (MontoEntregado >= monto)
             {

@@ -8,7 +8,7 @@ namespace FerreteriaValdivia.Migrations
     public partial class ActualizarModeloProducto : Migration
     {
         /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
+        protected override void Up(MigrationBuilder migrationBuilder)   
         {
             migrationBuilder.AddColumn<int>(
                 name: "CantidadVendida",

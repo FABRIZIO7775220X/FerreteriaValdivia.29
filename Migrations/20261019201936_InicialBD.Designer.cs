@@ -15,7 +15,7 @@ namespace FerreteriaValdivia.Migrations
     partial class InicialBD
     {
         /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)                        
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,7 +26,7 @@ namespace FerreteriaValdivia.Migrations
 
             modelBuilder.Entity("FerreteriaValdivia.Models.Producto", b =>
                 {
-                    b.Property<string>("CodigoBarras")
+                    b.Property<string>("CodigoProducto")
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("Nombre")
@@ -42,7 +42,7 @@ namespace FerreteriaValdivia.Migrations
                     b.Property<int>("StockMinimo")
                         .HasColumnType("int");
 
-                    b.HasKey("CodigoBarras");
+                    b.HasKey("CodigoProducto");
 
                     b.ToTable("Productos");
                 });

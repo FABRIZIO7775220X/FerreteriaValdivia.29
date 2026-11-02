@@ -39,13 +39,13 @@ namespace FerreteriaValdivia.Controllers
         // POST: Productos/Crear
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Crear([Bind("CodigoBarras,Nombre,PrecioVenta,StockMinimo,StockActual,CantidadVendida")] Producto producto)
+        public async Task<IActionResult> Crear([Bind("CodigoProducto,Nombre,PrecioVenta,StockMinimo,StockActual,CantidadVendida")] Producto producto)
         {
             if (ModelState.IsValid)
             {
                 _context.Productos.Add(producto);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));  
             }
             return View(producto);
         }
@@ -69,9 +69,9 @@ namespace FerreteriaValdivia.Controllers
         // POST: Productos/Editar/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Editar(string id, [Bind("CodigoBarras,Nombre,PrecioVenta,StockMinimo,StockActual,CantidadVendida")] Producto producto)
+        public async Task<IActionResult> Editar(string id, [Bind("CodigoProducto,Nombre,PrecioVenta,StockMinimo,StockActual,CantidadVendida")] Producto producto)
         {
-            if (id != producto.CodigoBarras)
+            if (id != producto.CodigoProducto)
             {
                 return NotFound();
             }
@@ -85,7 +85,7 @@ namespace FerreteriaValdivia.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductoExists(producto.CodigoBarras))
+                    if (!ProductoExists(producto.CodigoProducto))
                     {
                         return NotFound();
                     }
@@ -108,7 +108,7 @@ namespace FerreteriaValdivia.Controllers
             }
 
             var producto = await _context.Productos
-                .FirstOrDefaultAsync(m => m.CodigoBarras == id);
+                .FirstOrDefaultAsync(m => m.CodigoProducto == id);
             if (producto == null)
             {
                 return NotFound();
@@ -134,7 +134,7 @@ namespace FerreteriaValdivia.Controllers
 
         private bool ProductoExists(string id)
         {
-            return _context.Productos.Any(e => e.CodigoBarras == id);
+            return _context.Productos.Any(e => e.CodigoProducto == id);
         }
     }
 }

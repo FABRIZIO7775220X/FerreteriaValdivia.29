@@ -18,17 +18,17 @@ namespace FerreteriaValdivia.Migrations
                 name: "Productos",
                 columns: table => new
                 {
-                    CodigoBarras = table.Column<string>(type: "varchar(255)", nullable: false)
+                    CodigoProducto = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Nombre = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    PrecioVenta = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    PrecioVenta = table.Column<decimal>(type: "decimal(65,30)", nullable: false),    
                     StockMinimo = table.Column<int>(type: "int", nullable: false),
                     StockActual = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Productos", x => x.CodigoBarras);
+                    table.PrimaryKey("PK_Productos", x => x.CodigoProducto);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 

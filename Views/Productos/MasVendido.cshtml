@@ -14,7 +14,7 @@
             {
                 <h5 class="card-title text-success font-weight-bold">@Model.Nombre</h5>
                 <hr />
-                <p class="card-text"><strong>Código de Barras:</strong> @Model.CodigoBarras</p>
+                <p class="card-text"><strong>Código de Producto:</strong> @Model.CodigoProducto</p>
                 
                 <!-- AQUÍ CORREGIMOS LOS DECIMALES USANDO .ToString("N2") -->
                 <p class="card-text"><strong>Precio de Venta:</strong> @Model.PrecioVenta.ToString("N2") Bs.</p>
@@ -32,4 +32,4 @@
             <a asp-action="Index" class="btn btn-secondary">Volver al Listado</a>
         </div>
     </div>
-</div>
+</div>                 

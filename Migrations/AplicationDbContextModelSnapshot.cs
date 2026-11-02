@@ -23,7 +23,7 @@ namespace FerreteriaValdivia.Migrations
 
             modelBuilder.Entity("FerreteriaValdivia.Models.Producto", b =>
                 {
-                    b.Property<string>("CodigoBarras")
+                    b.Property<string>("CodigoProducto")
                         .HasColumnType("varchar(255)");
 
                     b.Property<int>("CantidadVendida")
@@ -42,7 +42,7 @@ namespace FerreteriaValdivia.Migrations
                     b.Property<int>("StockMinimo")
                         .HasColumnType("int");
 
-                    b.HasKey("CodigoBarras");
+                    b.HasKey("CodigoProducto");
 
                     b.ToTable("Productos");
                 });

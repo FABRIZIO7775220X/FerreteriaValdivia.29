@@ -9,7 +9,7 @@ namespace FerreteriaValdivia.Models
         [Key] // <-- LE INDICA A EF CORE QUE ESTA ES LA LLAVE PRIMARIA
         public int IdUsuario { get; set; }
 
-        public string NombreCompleto { get; set; }
+        public string NombreCompleto { get; set; }                 
         public string Username { get; set; }
         public bool Activo { get; set; }
         protected string PasswordHash { get; set; }
