@@ -4,7 +4,8 @@ Sistema integral de gestión para ferretería desarrollado con ASP.NET Core MVC,
 
 ## Requisitos previos
 - Tener instalado net 9.0
-- Tener instalado y corriendo la base de datos llamada "base_de_datos.sql"
+- Tener mariadb
+- Hacer correr el archivo "base_de_datos.sql"
 
 ## Instrucciones para clonar y ejecutar el proyecto
 
