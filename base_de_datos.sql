@@ -1,8 +1,10 @@
+--CREA ESTA BASE DE DATOS PARA QUE CORRA EL PROYECTO
+
 -- 1. Crear y seleccionar la base de datos
 CREATE DATABASE IF NOT EXISTS ferreteriavaldiviadb;
 USE ferreteriavaldiviadb;
 
--- Desactivar temporalmente la verificación de llaves foráneas para evitar problemas de orden al crear
+-- Desactivar temporalmente la verificación de llaves foráneas
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- 2. Tabla Categoria
@@ -35,20 +37,25 @@ CREATE TABLE IF NOT EXISTS Empleado (
     telefono VARCHAR(20)
 );
 
--- 6. Tabla Producto (Depende de Categoria y Proveedor)
-CREATE TABLE IF NOT EXISTS Producto (
+-- 6. Tabla productos (En minúscula y plural, con todas las columnas de tu vista web y diagrama)
+CREATE TABLE IF NOT EXISTS productos (
     id_Producto INT AUTO_INCREMENT PRIMARY KEY,
     nombre_Producto VARCHAR(100) NOT NULL,
     precio DECIMAL(10,2) NOT NULL,
     stock INT NOT NULL,
     marca VARCHAR(50),
+    CodigoBarras VARCHAR(50),
+    CantidadVendida INT DEFAULT 0,
+    PrecioVenta DECIMAL(10,2),
+    StockActual INT DEFAULT 0,
+    StockMinimo INT DEFAULT 0,
     id_Categoria INT NOT NULL,
     id_Proveedor INT NOT NULL,
     CONSTRAINT fk_producto_categoria FOREIGN KEY (id_Categoria) REFERENCES Categoria(id_Categoria),
     CONSTRAINT fk_producto_proveedor FOREIGN KEY (id_Proveedor) REFERENCES Proveedor(id_Proveedor)
 );
 
--- 7. Tabla Venta (Depende de Cliente y Empleado)
+-- 7. Tabla Venta
 CREATE TABLE IF NOT EXISTS Venta (
     id_Venta INT AUTO_INCREMENT PRIMARY KEY,
     fecha DATE NOT NULL,
@@ -60,7 +67,7 @@ CREATE TABLE IF NOT EXISTS Venta (
     CONSTRAINT fk_venta_empleado FOREIGN KEY (id_Empleado) REFERENCES Empleado(id_Empleado)
 );
 
--- 8. Tabla Detalle_Venta (Depende de Venta y Producto)
+-- 8. Tabla Detalle_Venta
 CREATE TABLE IF NOT EXISTS Detalle_Venta (
     id_Detalle INT AUTO_INCREMENT PRIMARY KEY,
     cantidad INT NOT NULL,
@@ -69,10 +76,10 @@ CREATE TABLE IF NOT EXISTS Detalle_Venta (
     id_Venta INT NOT NULL,
     id_Producto INT NOT NULL,
     CONSTRAINT fk_detalleventa_venta FOREIGN KEY (id_Venta) REFERENCES Venta(id_Venta),
-    CONSTRAINT fk_detalleventa_producto FOREIGN KEY (id_Producto) REFERENCES Producto(id_Producto)
+    CONSTRAINT fk_detalleventa_producto FOREIGN KEY (id_Producto) REFERENCES productos(id_Producto)
 );
 
--- 9. Tabla Pago (Depende de Venta)
+-- 9. Tabla Pago
 CREATE TABLE IF NOT EXISTS Pago (
     id_Pago INT AUTO_INCREMENT PRIMARY KEY,
     monto DECIMAL(10,2) NOT NULL,
@@ -84,4 +91,4 @@ CREATE TABLE IF NOT EXISTS Pago (
 );
 
 -- Volver a activar la verificación de llaves foráneas
-SET FOREIGN_KEY_CHECKS = 1
+SET FOREIGN_KEY_CHECKS = 1;
