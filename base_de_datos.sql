@@ -37,10 +37,10 @@ CREATE TABLE IF NOT EXISTS Empleado (
     telefono VARCHAR(20)
 );
 
--- 6. Tabla productos (En minúscula y plural, con todas las columnas de tu vista web y diagrama)
+-- 6. Tabla productos (Corregida con la columna Nombre)
 CREATE TABLE IF NOT EXISTS productos (
     id_Producto INT AUTO_INCREMENT PRIMARY KEY,
-    nombre_Producto VARCHAR(100) NOT NULL,
+    Nombre VARCHAR(100) NOT NULL,
     precio DECIMAL(10,2) NOT NULL,
     stock INT NOT NULL,
     marca VARCHAR(50),
@@ -54,7 +54,6 @@ CREATE TABLE IF NOT EXISTS productos (
     CONSTRAINT fk_producto_categoria FOREIGN KEY (id_Categoria) REFERENCES Categoria(id_Categoria),
     CONSTRAINT fk_producto_proveedor FOREIGN KEY (id_Proveedor) REFERENCES Proveedor(id_Proveedor)
 );
-
 -- 7. Tabla Venta
 CREATE TABLE IF NOT EXISTS Venta (
     id_Venta INT AUTO_INCREMENT PRIMARY KEY,
