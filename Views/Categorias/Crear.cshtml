@@ -1,0 +1,17 @@
+@model FerreteriaValdivia.Models.Categoria
+
+@{
+    ViewData["Title"] = "Nueva Categoría";
+}
+
+<div class="container mt-4">
+    <h2>Agregar Nueva Categoría</h2>
+    <form asp-action="Crear" method="post">
+        <div class="mb-3">
+            <label asp-for="NombreCategoria" class="form-label">Nombre de Categoría</label>
+            <input asp-for="NombreCategoria" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-success">Guardar Categoría</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

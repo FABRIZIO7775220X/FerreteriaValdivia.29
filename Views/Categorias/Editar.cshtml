@@ -1,0 +1,25 @@
+@model FerreteriaValdivia.Models.Categoria
+
+@{
+    ViewData["Title"] = "Editar Categoría";
+}
+
+<div class="container mt-4">
+    <h2>Editar Categoría</h2>
+    <hr />
+    <form asp-action="Editar">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="IdCategoria" />
+
+        <div class="form-group mb-3">
+            <label asp-for="NombreCategoria" class="control-label">Nombre de Categoría</label>
+            <input asp-for="NombreCategoria" class="form-control" />
+            <span asp-validation-for="NombreCategoria" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>

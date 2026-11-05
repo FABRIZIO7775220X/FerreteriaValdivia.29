@@ -1,0 +1,25 @@
+@model FerreteriaValdivia.Models.Empleado
+
+@{
+    ViewData["Title"] = "Nuevo Empleado";
+}
+
+<div class="container mt-4">
+    <h2>Agregar Nuevo Empleado</h2>
+    <form asp-action="Crear" method="post">
+        <div class="mb-3">
+            <label asp-for="Nombre" class="form-label">Nombre</label>
+            <input asp-for="Nombre" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Cargo" class="form-label">Cargo</label>
+            <input asp-for="Cargo" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Telefono" class="form-label">Teléfono</label>
+            <input asp-for="Telefono" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-success">Guardar Empleado</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
