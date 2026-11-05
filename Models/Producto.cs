@@ -1,72 +1,38 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FerreteriaValdivia.Models
 {
+    [Table("Productos")]
     public class Producto
     {
-        
         [Key]
-        [Column("CodigoBarras")]
+        [StringLength(50)]
+        [Column("CodigoProducto")]
         public string CodigoProducto { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "El nombre es obligatorio")]
+        [Required]
+        [StringLength(100)]
+        [Column("Nombre_Producto")]
         public string Nombre { get; set; } = string.Empty;
 
-        public decimal PrecioVenta { get; set; }     
+        [Column("PrecioVenta", TypeName = "decimal(18,2)")]
+        public decimal PrecioVenta { get; set; }
 
+        [Column("StockMinimo")]
         public int StockMinimo { get; set; }
 
-        // Permitimos el set público para que el formulario y Entity Framework puedan llenarlo
-        private int _stockActual;
-        public int StockActual
-        {
-            get => _stockActual;
-            set => _stockActual = value >= 0 ? value : 0;
-        }
+        [Column("StockActual")]
+        public int StockActual { get; set; }
 
-        public int CantidadVendida { get; set; } // <--- Campo necesario para la pestaña del más vendido
+        [Column("CantidadVendida")]
+        public int CantidadVendida { get; set; }
 
-        // Constructor vacío (obligatorio para Entity Framework Core)
-        public Producto()
-        {
-        }
+        // Llaves foráneas opcionales para las relaciones del diagrama
+        [Column("id_Categoria")]
+        public int? IdCategoria { get; set; }
 
-        // Constructor con parámetros
-        public Producto(string codigoProducto, string nombre, decimal precioVenta, int stockMinimo, int stockActual, int cantidadVendida = 0) 
-        {
-            CodigoProducto = codigoProducto;
-            Nombre = nombre;
-            PrecioVenta = precioVenta;
-            StockMinimo = stockMinimo;
-            StockActual = stockActual >= 0 ? stockActual : 0;
-            CantidadVendida = cantidadVendida;
-        }
-
-        // Métodos de la clase
-        public bool DescontarStock(int cantidad)
-        {
-            if (cantidad <= 0 || _stockActual < cantidad)
-                return false;
-
-            _stockActual -= cantidad;
-            CantidadVendida += cantidad; // Registra automáticamente la venta para el reporte
-            return true;
-        }
-
-        public bool AgregarStock(int cantidad)
-        {
-            if (cantidad <= 0) 
-                return false;
-
-            _stockActual += cantidad;
-            return true;
-        }
-
-        public bool RequiereReposicion()
-        {
-            return _stockActual <= StockMinimo;
-        }
+        [Column("id_Proveedor")]
+        public int? IdProveedor { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace FerreteriaValdivia.Controllers
             return View(await _context.Productos.ToListAsync());
         }
 
-        // GET: Productos/MasVendido (Pestaña del producto más vendido)
+        // GET: Productos/MasVendido
         public async Task<IActionResult> MasVendido()
         {
             var productoTop = await _context.Productos
@@ -39,7 +39,7 @@ namespace FerreteriaValdivia.Controllers
         // POST: Productos/Crear
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Crear([Bind("CodigoProducto,Nombre,PrecioVenta,StockMinimo,StockActual,CantidadVendida")] Producto producto)
+        public async Task<IActionResult> Crear([Bind("CodigoProducto,Nombre,PrecioVenta,StockMinimo,StockActual,CantidadVendida,IdCategoria,IdProveedor")] Producto producto)
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +69,7 @@ namespace FerreteriaValdivia.Controllers
         // POST: Productos/Editar/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Editar(string id, [Bind("CodigoProducto,Nombre,PrecioVenta,StockMinimo,StockActual,CantidadVendida")] Producto producto)
+        public async Task<IActionResult> Editar(string id, [Bind("CodigoProducto,Nombre,PrecioVenta,StockMinimo,StockActual,CantidadVendida,IdCategoria,IdProveedor")] Producto producto)
         {
             if (id != producto.CodigoProducto)
             {
