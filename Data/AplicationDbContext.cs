@@ -9,7 +9,11 @@ namespace FerreteriaValdivia.Data
         {
         }
 
-        public DbSet<Producto> Productos { get; set; }
-        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Producto> Productos { get; set; } = null!;
+        public DbSet<Usuario> Usuarios { get; set; } = null!;
+        public DbSet<Categoria> Categorias { get; set; } = null!;
+        public DbSet<Proveedor> Proveedores { get; set; } = null!;
+        public DbSet<Cliente> Clientes { get; set; } = null!;
+        public DbSet<Empleado> Empleados { get; set; } = null!;
     }
 }

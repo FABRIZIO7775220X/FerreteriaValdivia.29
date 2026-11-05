@@ -1,0 +1,30 @@
+@model IEnumerable<FerreteriaValdivia.Models.Proveedor>
+
+@{
+    ViewData["Title"] = "Lista de Proveedores";
+}
+
+<div class="container mt-4">
+    <h2>Lista de Proveedores</h2>
+    <p>
+        <a asp-action="Crear" class="btn btn-success">Nuevo Proveedor</a>
+    </p>
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Ubicación</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td>@item.Telefono</td>
+                    <td>@item.Ubicacion</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
