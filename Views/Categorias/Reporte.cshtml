@@ -1,0 +1,79 @@
+@using FerreteriaValdivia
+@{
+    ViewData["Title"] = "Reporte de Categorías";
+    int idCategoriaTop = 0;
+    string nombreCategoriaTop = "";
+
+    if (ViewBag.CategoriaTop != null)
+    {
+        if (ViewBag.CategoriaTop is string textoTop)
+        {
+            nombreCategoriaTop = textoTop;
+        }
+        else
+        {
+            try
+            {
+                nombreCategoriaTop = (string)(ViewBag.CategoriaTop.NombreCategoria ?? ViewBag.CategoriaTop.ToString() ?? "");
+                idCategoriaTop = (int)(ViewBag.CategoriaTop.IdCategoria ?? 0);
+            }
+            catch
+            {
+                nombreCategoriaTop = ViewBag.CategoriaTop.ToString() ?? "";
+            }
+        }
+    }
+
+    if (idCategoriaTop <= 0 && ViewBag.IdCategoriaTop != null)
+    {
+        int.TryParse(ViewBag.IdCategoriaTop.ToString(), out idCategoriaTop);
+    }
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">📊 Analítica de Inventario por Categoría</h2>
+        <span class="text-muted fw-semibold">Fecha: @DateTime.Now.ToShortDateString()</span>
+    </div>
+
+    <div class="row g-4">
+        <!-- Tarjeta de Categoría con más Productos -->
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white border-start border-primary border-4 h-100">
+                <h5 class="text-muted text-uppercase fs-6 fw-bold">Categoría con Más Productos</h5>
+                @if (ViewBag.CategoriaTop != null)
+                {
+                    <h3 class="fw-bold text-dark mt-2">
+                        @if (idCategoriaTop > 0)
+                        {
+                            <span>@CodigosFerreteria.Categoria(idCategoriaTop) · </span>
+                        }
+                        <span>@nombreCategoriaTop</span>
+                    </h3>
+                    <p class="text-primary mb-0 fw-bold fs-5">
+                        📦 Total de productos: @ViewBag.CantidadProductos
+                    </p>
+                }
+                else
+                {
+                    <h3 class="fw-bold text-muted mt-2">Sin registros</h3>
+                    <p class="text-muted mb-0">No hay categorías o productos vinculados en este momento.</p>
+                }
+            </div>
+        </div>
+
+        <!-- Tarjeta de Resumen General -->
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white border-start border-success border-4 h-100">
+                <h5 class="text-muted text-uppercase fs-6 fw-bold">Resumen de Clasificación</h5>
+                <p class="text-muted mt-2 mb-1">Total de categorías activas en el sistema:</p>
+                <h3 class="fw-bold text-dark">@(ViewBag.TotalCategorias ?? 0) Categorías</h3>
+                <p class="text-success mb-0 fw-semibold">🏷️ Organización óptima del catálogo</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 shadow-sm">Volver al Listado</a>
+    </div>
+</div>

@@ -16,7 +16,7 @@ namespace FerreteriaValdivia.Models
         [Column("Nombre_Producto")]
         public string Nombre { get; set; } = string.Empty;
 
-        [Column("PrecioVenta", TypeName = "decimal(18,2)")]
+        [Column("PrecioVenta")]
         public decimal PrecioVenta { get; set; }
 
         [Column("StockMinimo")]
@@ -28,7 +28,9 @@ namespace FerreteriaValdivia.Models
         [Column("CantidadVendida")]
         public int CantidadVendida { get; set; }
 
-        // Llaves foráneas opcionales para las relaciones del diagrama
+        [Column("CantidadVenta")]
+        public int CantidadVenta { get; set; }
+
         [Column("id_Categoria")]
         public int? IdCategoria { get; set; }
 

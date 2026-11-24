@@ -1,30 +1,60 @@
 @model IEnumerable<FerreteriaValdivia.Models.Proveedor>
+@using FerreteriaValdivia
 
 @{
-    ViewData["Title"] = "Lista de Proveedores";
+    ViewData["Title"] = "Gestión de Proveedores";
 }
 
-<div class="container mt-4">
-    <h2>Lista de Proveedores</h2>
-    <p>
-        <a asp-action="Crear" class="btn btn-success">Nuevo Proveedor</a>
-    </p>
-    <table class="table table-striped table-bordered">
-        <thead class="table-dark">
-            <tr>
-                <th>Nombre</th>
-                <th>Teléfono</th>
-                <th>Ubicación</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model) {
-                <tr>
-                    <td>@item.Nombre</td>
-                    <td>@item.Telefono</td>
-                    <td>@item.Ubicacion</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div class="container-fluid mt-4">
+    <!-- Encabezado del Módulo con botones alineados horizontalmente -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0">Gestión de Proveedores</h2>
+            <p class="text-muted mb-0">Directorio de socios comerciales, distribuidores y casas de suministros.</p>
+        </div>
+        <div class="d-flex gap-2">
+            <a asp-action="Crear" class="btn btn-dark shadow-sm">+ Nuevo Proveedor</a>
+            <a asp-action="Reporte" class="btn btn-outline-secondary shadow-sm bg-white">📊 Reporte de Proveedores</a>
+        </div>
+    </div>
+
+    <!-- Tabla Principal de Proveedores -->
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="ps-4">Código Proveedor</th>
+                        <th>Nombre</th>
+                        <th>Teléfono</th>
+                        <th>Ubicación</th>
+                        <th class="text-end pe-4">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model) {
+                            <tr>
+                                <td class="ps-4 fw-semibold text-dark">@CodigosFerreteria.Proveedor(item.IdProveedor)</td>
+                                <td class="fw-semibold">@item.Nombre</td>
+                                <td>@item.Telefono</td>
+                                <td>@item.Ubicacion</td>
+                                <td class="text-end pe-4">
+                                    <a asp-action="Editar" asp-route-id="@item.IdProveedor" class="btn btn-sm btn-outline-primary px-3 rounded-pill">Editar</a>
+                                    <a asp-action="Eliminar" asp-route-id="@item.IdProveedor" class="btn btn-sm btn-outline-danger px-3 rounded-pill ms-1">Eliminar</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">No hay proveedores registrados todavía.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

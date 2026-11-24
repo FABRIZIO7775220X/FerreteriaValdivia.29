@@ -1,0 +1,77 @@
+@model IEnumerable<FerreteriaValdivia.Models.DetalleVenta>
+@using FerreteriaValdivia
+
+@{
+    ViewData["Title"] = "Gestión de Detalle de Ventas";
+}
+
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0">Detalle de Ventas</h2>
+            <p class="text-muted mb-0">Productos asociados a cada transacción de venta.</p>
+        </div>
+        <div>
+            <a asp-action="Crear" class="btn btn-dark shadow-sm">+ Nuevo Detalle</a>
+            <a asp-action="Reporte" class="btn btn-outline-secondary ms-2 shadow-sm">📊 Analítica de Unidades</a>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="ps-4">Código Detalle</th>
+                        <th>Código Venta</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Subtotal</th>
+                        <th class="text-end pe-4">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            string idProdStr = item.id_Producto?.ToString() ?? string.Empty;
+                            int.TryParse(idProdStr, out int idProdNum);
+                            string? codProdRaw = item.Producto?.CodigoProducto;
+
+                            string codigoProducto = !string.IsNullOrWhiteSpace(codProdRaw)
+                                ? CodigosFerreteria.Producto(codProdRaw, idProdNum)
+                                : CodigosFerreteria.NormalizarConPrefijo(idProdStr, "PRD", 4, idProdNum);
+
+                            <tr>
+                                <td class="ps-4 fw-semibold text-dark">@CodigosFerreteria.DetalleVenta(item.id_DetalleVenta)</td>
+                                <td>@CodigosFerreteria.Venta(item.id_Venta)</td>
+                                <td>
+                                    <span class="fw-semibold">@codigoProducto</span>
+                                    @if (item.Producto != null && !string.IsNullOrWhiteSpace(item.Producto.Nombre))
+                                    {
+                                        <span class="text-muted">· @item.Producto.Nombre</span>
+                                    }
+                                </td>
+                                <td>@item.Cantidad</td>
+                                <td style="font-weight: 500;">@item.PrecioUnitario.ToString("N2") Bs</td>
+                                <td class="fw-bold text-success">@item.Subtotal.ToString("N2") Bs</td>
+                                <td class="text-end pe-4">
+                                    <a asp-action="Editar" asp-route-id="@item.id_DetalleVenta" class="btn btn-sm btn-outline-primary px-3 rounded-pill">Editar</a>
+                                    <a asp-action="Eliminar" asp-route-id="@item.id_DetalleVenta" class="btn btn-sm btn-outline-danger px-3 rounded-pill ms-1">Eliminar</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center text-muted py-4">No hay detalles de venta registrados todavía.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+@using FerreteriaValdivia
+@{
+    ViewData["Title"] = "Reporte de Clientes";
+    int idClienteTop = 0;
+    if (ViewBag.IdClienteTop != null)
+    {
+        int.TryParse(ViewBag.IdClienteTop.ToString(), out idClienteTop);
+    }
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">📊 Analítica de Clientes y Compras</h2>
+        <span class="text-muted fw-semibold">Fecha: @DateTime.Now.ToShortDateString()</span>
+    </div>
+
+    <div class="row g-4">
+        <!-- Tarjeta de Cliente con Más Compras -->
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white border-start border-primary border-4 h-100">
+                <h5 class="text-muted text-uppercase fs-6 fw-bold">Cliente con Más Compras Realizadas</h5>
+                @if (ViewBag.ClienteTop != null && ViewBag.ClienteTop != "Ninguno")
+                {
+                    <h3 class="fw-bold text-dark mt-2">
+                        @if (idClienteTop > 0)
+                        {
+                            <span>@CodigosFerreteria.Cliente(idClienteTop) · </span>
+                        }
+                        <span>@ViewBag.ClienteTop</span>
+                    </h3>
+                    <p class="text-muted mb-1">Teléfono de Contacto: <strong>@ViewBag.TelefonoCliente</strong></p>
+                    <p class="text-primary mb-0 fw-bold fs-5">
+                        🛒 Total de compras registradas: @ViewBag.CantidadCompras
+                    </p>
+                }
+                else
+                {
+                    <h3 class="fw-bold text-muted mt-2">Sin registros</h3>
+                    <p class="text-muted mb-0">No hay clientes o ventas vinculadas en el sistema actualmente.</p>
+                }
+            </div>
+        </div>
+
+        <!-- Tarjeta de Resumen General -->
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white border-start border-success border-4 h-100">
+                <h5 class="text-muted text-uppercase fs-6 fw-bold">Resumen de Cartera</h5>
+                <p class="text-muted mt-2 mb-1">Total de clientes registrados activamente:</p>
+                <h3 class="fw-bold text-dark">@(ViewBag.TotalClientes ?? 0) Clientes</h3>
+                <p class="text-success mb-0 fw-semibold">👥 Base de datos consolidada para fidelización</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 shadow-sm">Volver al Listado</a>
+    </div>
+</div>

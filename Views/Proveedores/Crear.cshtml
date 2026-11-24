@@ -1,25 +1,59 @@
 @model FerreteriaValdivia.Models.Proveedor
+@using FerreteriaValdivia
 
 @{
     ViewData["Title"] = "Nuevo Proveedor";
+    string codigoSugerido = ViewBag.CodigoProveedorSugerido as string
+        ?? CodigosFerreteria.Proveedor(Model != null && Model.IdProveedor > 0 ? Model.IdProveedor : 1);
 }
 
 <div class="container mt-4">
-    <h2>Agregar Nuevo Proveedor</h2>
-    <form asp-action="Crear" method="post">
-        <div class="mb-3">
-            <label asp-for="Nombre" class="form-label">Nombre</label>
-            <input asp-for="Nombre" class="form-control" />
+    <h2 class="fw-bold mb-3">Agregar Nuevo Proveedor</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Crear" method="post" class="card p-4 border-0 shadow-sm rounded-4">
+                <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label for="codigoProveedorIngresado" class="form-label fw-bold">Código del Proveedor</label>
+                    <input type="text"
+                           id="codigoProveedorIngresado"
+                           name="codigoProveedorIngresado"
+                           class="form-control rounded-3"
+                           value="@codigoSugerido"
+                           placeholder="Ej. PRV-0001 o 1" />
+                    <small class="text-muted">Formato: PRV-0001 (también acepta el número).</small>
+                    <span asp-validation-for="IdProveedor" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Nombre" class="form-label fw-bold">Nombre del Proveedor</label>
+                    <input asp-for="Nombre" class="form-control rounded-3" placeholder="Ej. Ferretera Mayorista S.R.L." />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Telefono" class="form-label fw-bold">Teléfono de Contacto</label>
+                    <input asp-for="Telefono" class="form-control rounded-3" placeholder="Ej. 2-2456789" />
+                    <span asp-validation-for="Telefono" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Ubicacion" class="form-label fw-bold">Ubicación / Dirección</label>
+                    <input asp-for="Ubicacion" class="form-control rounded-3" placeholder="Ej. Zona Comercial, La Paz" />
+                    <span asp-validation-for="Ubicacion" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-3">
+                    <input type="submit" value="Guardar Proveedor" class="btn btn-dark rounded-pill px-4" />
+                    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 ms-2">Cancelar</a>
+                </div>
+            </form>
         </div>
-        <div class="mb-3">
-            <label asp-for="Telefono" class="form-label">Teléfono</label>
-            <input asp-for="Telefono" class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="Ubicacion" class="form-label">Ubicación</label>
-            <input asp-for="Ubicacion" class="form-control" />
-        </div>
-        <button type="submit" class="btn btn-success">Guardar Proveedor</button>
-        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-    </form>
+    </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

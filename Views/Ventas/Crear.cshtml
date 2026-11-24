@@ -1,0 +1,88 @@
+@model FerreteriaValdivia.Models.Venta
+@using FerreteriaValdivia
+
+@{
+    ViewData["Title"] = "Registrar Venta";
+    string codigoClienteInicial = ViewBag.CodigoClienteInicial as string
+        ?? (Model != null && Model.id_Cliente > 0 ? CodigosFerreteria.Cliente(Model.id_Cliente) : "");
+    string codigoEmpleadoInicial = ViewBag.CodigoEmpleadoInicial as string
+        ?? (Model != null && Model.id_Empleado > 0 ? CodigosFerreteria.Empleado(Model.id_Empleado, Model.Empleado?.Cargo ?? "") : "");
+    string codigoCajaInicial = ViewBag.CodigoCajaInicial as string
+        ?? (Model != null && Model.id_Caja > 0 ? CodigosFerreteria.Caja(Model.id_Caja) : "");
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-4">
+                    <h2 class="fw-bold mb-3">Nueva Venta</h2>
+                    <p class="text-muted mb-4">Complete los datos generales para procesar la venta.</p>
+
+                    <form asp-action="Crear" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Fecha" class="form-label fw-semibold">Fecha</label>
+                            <input asp-for="Fecha" class="form-control rounded-3" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                            <span asp-validation-for="Fecha" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Hora" class="form-label fw-semibold">Hora</label>
+                            <input asp-for="Hora" class="form-control rounded-3" type="time" value="@DateTime.Now.ToString("HH:mm")" />
+                            <span asp-validation-for="Hora" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Total" class="form-label fw-semibold">Total (Bs)</label>
+                            <input asp-for="Total" class="form-control rounded-3" type="number" step="0.01" placeholder="0.00" />
+                            <span asp-validation-for="Total" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="codigoClienteIngresado" class="form-label fw-semibold">Código del Cliente</label>
+                            <input type="text"
+                                   id="codigoClienteIngresado"
+                                   name="codigoClienteIngresado"
+                                   class="form-control rounded-3"
+                                   value="@codigoClienteInicial"
+                                   placeholder="Ej. CLI-0001 o 1" />
+                            <small class="text-muted">Formato: CLI-0001 (también acepta el número).</small>
+                            <span asp-validation-for="id_Cliente" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="codigoEmpleadoIngresado" class="form-label fw-semibold">Código del Empleado</label>
+                            <input type="text"
+                                   id="codigoEmpleadoIngresado"
+                                   name="codigoEmpleadoIngresado"
+                                   class="form-control rounded-3"
+                                   value="@codigoEmpleadoInicial"
+                                   placeholder="Ej. CAJ-EMP-0001, EMP-0001 o 1" />
+                            <small class="text-muted">Acepta CAJ-EMP-0001, EMP-0001 o el número.</small>
+                            <span asp-validation-for="id_Empleado" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="codigoCajaIngresado" class="form-label fw-semibold">Código de la Caja</label>
+                            <input type="text"
+                                   id="codigoCajaIngresado"
+                                   name="codigoCajaIngresado"
+                                   class="form-control rounded-3"
+                                   value="@codigoCajaInicial"
+                                   placeholder="Ej. CAJ-0001 o 1" />
+                            <small class="text-muted">Formato: CAJ-0001 (también acepta el número).</small>
+                            <span asp-validation-for="id_Caja" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4">Cancelar</a>
+                            <button type="submit" class="btn btn-dark rounded-pill px-4 shadow-sm">Guardar Venta</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

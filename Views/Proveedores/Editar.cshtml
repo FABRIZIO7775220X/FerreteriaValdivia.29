@@ -1,37 +1,58 @@
 @model FerreteriaValdivia.Models.Proveedor
+@using FerreteriaValdivia
 
 @{
     ViewData["Title"] = "Editar Proveedor";
+    string codigoProveedorActual = ViewBag.CodigoProveedorActual as string
+        ?? (Model != null ? CodigosFerreteria.Proveedor(Model.IdProveedor) : "");
 }
 
 <div class="container mt-4">
-    <h2>Editar Proveedor</h2>
+    <h2 class="fw-bold mb-3">Editar Proveedor</h2>
     <hr />
-    <form asp-action="Editar">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="IdProveedor" />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Editar" method="post" class="card p-4 border-0 shadow-sm rounded-4">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="IdProveedor" />
 
-        <div class="form-group mb-3">
-            <label asp-for="Nombre" class="control-label">Nombre</label>
-            <input asp-for="Nombre" class="form-control" />
-            <span asp-validation-for="Nombre" class="text-danger"></span>
-        </div>
+                <div class="form-group mb-3">
+                    <label for="codigoProveedorMostrado" class="control-label fw-bold">Código del Proveedor</label>
+                    <input type="text"
+                           id="codigoProveedorMostrado"
+                           name="codigoProveedorMostrado"
+                           class="form-control rounded-3 bg-light"
+                           value="@codigoProveedorActual"
+                           readonly />
+                </div>
 
-        <div class="form-group mb-3">
-            <label asp-for="Telefono" class="control-label">Teléfono</label>
-            <input asp-for="Telefono" class="form-control" />
-            <span asp-validation-for="Telefono" class="text-danger"></span>
-        </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Nombre" class="control-label fw-bold">Nombre del Proveedor</label>
+                    <input asp-for="Nombre" class="form-control rounded-3" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
 
-        <div class="form-group mb-3">
-            <label asp-for="Ubicacion" class="control-label">Ubicación</label>
-            <input asp-for="Ubicacion" class="form-control" />
-            <span asp-validation-for="Ubicacion" class="text-danger"></span>
-        </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Telefono" class="control-label fw-bold">Teléfono de Contacto</label>
+                    <input asp-for="Telefono" class="form-control rounded-3" />
+                    <span asp-validation-for="Telefono" class="text-danger"></span>
+                </div>
 
-        <div class="form-group">
-            <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
-            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                <div class="form-group mb-3">
+                    <label asp-for="Ubicacion" class="control-label fw-bold">Ubicación / Dirección</label>
+                    <input asp-for="Ubicacion" class="form-control rounded-3" />
+                    <span asp-validation-for="Ubicacion" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-3">
+                    <input type="submit" value="Guardar Cambios" class="btn btn-dark rounded-pill px-4" />
+                    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 ms-2">Cancelar</a>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

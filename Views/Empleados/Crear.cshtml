@@ -1,25 +1,76 @@
 @model FerreteriaValdivia.Models.Empleado
+@using FerreteriaValdivia
 
 @{
     ViewData["Title"] = "Nuevo Empleado";
+    int idEmpleadoActual = Model?.IdEmpleado ?? 0;
+    int idRolActual = Model?.IdRol ?? 0;
+
+    string codigoEmpleadoSugerido = ViewBag.CodigoEmpleadoSugerido as string
+        ?? CodigosFerreteria.Empleado(idEmpleadoActual > 0 ? idEmpleadoActual : 1, Model?.Cargo ?? "");
+    string codigoRolSugerido = ViewBag.CodigoRolSugerido as string
+        ?? CodigosFerreteria.Rol(idRolActual > 0 ? idRolActual : 1);
 }
 
 <div class="container mt-4">
-    <h2>Agregar Nuevo Empleado</h2>
-    <form asp-action="Crear" method="post">
-        <div class="mb-3">
-            <label asp-for="Nombre" class="form-label">Nombre</label>
-            <input asp-for="Nombre" class="form-control" />
+    <h2 class="fw-bold mb-3">Agregar Nuevo Empleado</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Crear" method="post" class="card p-4 border-0 shadow-sm rounded-4">
+                <div asp-validation-summary="All" class="text-danger mb-3"></div>
+                
+                <div class="form-group mb-3">
+                    <label for="codigoEmpleadoIngresado" class="control-label fw-bold">Código Empleado</label>
+                    <input type="text"
+                           id="codigoEmpleadoIngresado"
+                           name="codigoEmpleadoIngresado"
+                           class="form-control rounded-3"
+                           value="@codigoEmpleadoSugerido"
+                           placeholder="Ej. CAJ-EMP-0001, CONT-EMP-0001 o EMP-0001" />
+                    <small class="text-muted">Acepta CAJ-EMP-0001, CONT-EMP-0001, EMP-0001 o el número.</small>
+                    <span asp-validation-for="IdEmpleado" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="codigoRolIngresado" class="control-label fw-bold">Código Rol</label>
+                    <input type="text"
+                           id="codigoRolIngresado"
+                           name="codigoRolIngresado"
+                           class="form-control rounded-3"
+                           value="@codigoRolSugerido"
+                           placeholder="Ej. ROL-01 o 1" />
+                    <small class="text-muted">Formato: ROL-01 (también acepta el número).</small>
+                    <span asp-validation-for="IdRol" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Nombre" class="control-label fw-bold">Nombre</label>
+                    <input asp-for="Nombre" class="form-control rounded-3" placeholder="Ej. Carlos Mendoza" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group mb-3">
+                    <label asp-for="Cargo" class="control-label fw-bold">Cargo</label>
+                    <input asp-for="Cargo" class="form-control rounded-3" placeholder="Ej. Cajero / Vendedor" />
+                    <span asp-validation-for="Cargo" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group mb-3">
+                    <label asp-for="Telefono" class="control-label fw-bold">Teléfono</label>
+                    <input asp-for="Telefono" class="form-control rounded-3" placeholder="Ej. 70012345" />
+                    <span asp-validation-for="Telefono" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group mt-3">
+                    <input type="submit" value="Guardar Empleado" class="btn btn-dark rounded-pill px-4" />
+                    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 ms-2">Cancelar</a>
+                </div>
+            </form>
         </div>
-        <div class="mb-3">
-            <label asp-for="Cargo" class="form-label">Cargo</label>
-            <input asp-for="Cargo" class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="Telefono" class="form-label">Teléfono</label>
-            <input asp-for="Telefono" class="form-control" />
-        </div>
-        <button type="submit" class="btn btn-success">Guardar Empleado</button>
-        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-    </form>
+    </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

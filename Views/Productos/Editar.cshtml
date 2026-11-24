@@ -1,43 +1,97 @@
 @model FerreteriaValdivia.Models.Producto
+@using FerreteriaValdivia
 
 @{
     ViewData["Title"] = "Editar Producto";
+    string codigoProductoActual = ViewBag.CodigoProductoActual as string
+        ?? (Model != null ? CodigosFerreteria.Producto(Model.CodigoProducto ?? "") : "");
+    string codigoCategoriaActual = ViewBag.CodigoCategoriaActual as string
+        ?? (Model != null ? CodigosFerreteria.Categoria(Model.IdCategoria ?? 0) : "");
+    string codigoProveedorActual = ViewBag.CodigoProveedorActual as string
+        ?? (Model != null ? CodigosFerreteria.Proveedor(Model.IdProveedor ?? 0) : "");
 }
 
 <div class="container mt-4">
-    <h2>Editar Producto</h2>
+    <h2 class="fw-bold mb-3">Editar Producto</h2>
     <hr />
-    <form asp-action="Editar">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="CodigoProducto" />
-        
-        <div class="form-group mb-3">
-            <label asp-for="Nombre" class="control-label">Nombre del Producto</label>
-            <input asp-for="Nombre" class="form-control" />
-            <span asp-validation-for="Nombre" class="text-danger"></span>
-        </div>
-        
-        <div class="form-group mb-3">
-            <label asp-for="PrecioVenta" class="control-label">Precio de Venta (Bs.)</label>
-            <input asp-for="PrecioVenta" class="form-control" />
-            <span asp-validation-for="PrecioVenta" class="text-danger"></span>
-        </div>
-        
-        <div class="form-group mb-3">
-            <label asp-for="StockActual" class="control-label">Stock Actual</label>
-            <input asp-for="StockActual" class="form-control" />
-            <span asp-validation-for="StockActual" class="text-danger"></span>
-        </div>
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Editar" method="post" class="card p-4 border-0 shadow-sm rounded-4">
+                <input type="hidden" asp-for="CodigoProducto" />
+                <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
-        <div class="form-group mb-3">
-            <label asp-for="StockMinimo" class="control-label">Stock Mínimo</label>
-            <input asp-for="StockMinimo" class="form-control" />
-            <span asp-validation-for="StockMinimo" class="text-danger"></span>
-        </div>
+                <div class="form-group mb-3">
+                    <label for="codigoProductoMostrado" class="control-label fw-bold">Código de Producto</label>
+                    <input type="text"
+                           id="codigoProductoMostrado"
+                           name="codigoProductoMostrado"
+                           class="form-control rounded-3 bg-light"
+                           value="@codigoProductoActual"
+                           readonly />
+                </div>
+                
+                <div class="form-group mb-3">
+                    <label asp-for="Nombre" class="control-label fw-bold">Nombre del Producto</label>
+                    <input asp-for="Nombre" class="form-control rounded-3" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group mb-3">
+                    <label asp-for="PrecioVenta" class="control-label fw-bold">Precio de Venta (Bs)</label>
+                    <input asp-for="PrecioVenta" class="form-control rounded-3" type="number" step="0.01" />
+                    <span asp-validation-for="PrecioVenta" class="text-danger"></span>
+                </div>
 
-        <div class="form-group">
-            <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
-            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                <div class="form-group mb-3">
+                    <label asp-for="StockMinimo" class="control-label fw-bold">Stock Mínimo</label>
+                    <input asp-for="StockMinimo" class="form-control rounded-3" type="number" />
+                    <span asp-validation-for="StockMinimo" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="StockActual" class="control-label fw-bold">Stock Actual</label>
+                    <input asp-for="StockActual" class="form-control rounded-3" type="number" />
+                    <span asp-validation-for="StockActual" class="text-danger"></span>
+                </div>
+
+                <!-- Campo de Cantidad de Venta actualizado -->
+                <div class="form-group mb-3">
+                    <label asp-for="CantidadVenta" class="control-label fw-bold">Cantidad de Venta</label>
+                    <input asp-for="CantidadVenta" class="form-control rounded-3" type="number" min="0" step="1" placeholder="0" />
+                    <span asp-validation-for="CantidadVenta" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="codigoCategoriaIngresado" class="control-label fw-bold">Código Categoría</label>
+                    <input type="text"
+                           id="codigoCategoriaIngresado"
+                           name="codigoCategoriaIngresado"
+                           value="@codigoCategoriaActual"
+                           class="form-control rounded-3"
+                           placeholder="Ej. CAT-0001 o 1" />
+                    <span asp-validation-for="IdCategoria" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="codigoProveedorIngresado" class="control-label fw-bold">Código Proveedor</label>
+                    <input type="text"
+                           id="codigoProveedorIngresado"
+                           name="codigoProveedorIngresado"
+                           value="@codigoProveedorActual"
+                           class="form-control rounded-3"
+                           placeholder="Ej. PRV-0001 o 1" />
+                    <span asp-validation-for="IdProveedor" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group mt-3">
+                    <input type="submit" value="Guardar Cambios" class="btn btn-dark rounded-pill px-4" />
+                    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 ms-2">Volver</a>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

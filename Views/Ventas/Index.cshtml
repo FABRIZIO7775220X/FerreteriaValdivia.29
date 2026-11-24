@@ -1,0 +1,70 @@
+@model IEnumerable<FerreteriaValdivia.Models.Venta>
+@using FerreteriaValdivia
+
+@{
+    ViewData["Title"] = "Gestión de Ventas";
+}
+
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0">Gestión de Ventas</h2>
+            <p class="text-muted mb-0">Historial de transacciones y facturación de la ferretería.</p>
+        </div>
+        <div>
+            <a asp-action="Crear" class="btn btn-dark shadow-sm">+ Nueva Venta</a>
+            <a asp-action="Reporte" class="btn btn-outline-secondary ms-2 shadow-sm">📊 Analítica de Ventas</a>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="ps-4">Código Venta</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Total</th>
+                        <th>Cliente</th>
+                        <th>Empleado</th>
+                        <th>Caja</th>
+                        <th class="text-end pe-4">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model) {
+                            <tr>
+                                <td class="ps-4 fw-semibold text-dark">@CodigosFerreteria.Venta(item.id_Venta)</td>
+                                <td>@item.Fecha.ToShortDateString()</td>
+                                <td>@item.Hora</td>
+                                <td class="fw-bold text-success">@item.Total.ToString("N2") Bs</td>
+                                <td>
+                                    <span class="fw-semibold">@CodigosFerreteria.Cliente(item.id_Cliente)</span>
+                                    <span class="text-muted">· @(item.Cliente?.Nombre ?? "Cliente General")</span>
+                                </td>
+                                <td>
+                                    <span class="fw-semibold">@CodigosFerreteria.Empleado(item.id_Empleado, item.Empleado?.Cargo ?? "")</span>
+                                    <span class="text-muted">· @(item.Empleado?.Nombre ?? "Sin asignar")</span>
+                                </td>
+                                <td>@CodigosFerreteria.Caja(item.id_Caja)</td>
+                                <td class="text-end pe-4">
+                                    <a asp-action="Editar" asp-route-id="@item.id_Venta" class="btn btn-sm btn-outline-primary px-3 rounded-pill me-1">Editar</a>
+                                    <a asp-action="Eliminar" asp-route-id="@item.id_Venta" class="btn btn-outline-danger btn-sm rounded-pill px-3">Eliminar</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8" class="text-center text-muted py-4">No hay ventas registradas todavía.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

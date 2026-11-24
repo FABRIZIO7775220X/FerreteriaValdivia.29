@@ -1,0 +1,35 @@
+@model FerreteriaValdivia.Models.Pago
+@using FerreteriaValdivia
+
+@{
+    ViewData["Title"] = "Detalles del Pago";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-4">
+                    <h2 class="fw-bold mb-3">Detalle del Pago @CodigosFerreteria.Pago(Model.id_Pago)</h2>
+                    <hr />
+                    <dl class="row">
+                        <dt class="col-sm-4 text-muted">Código Pago:</dt>
+                        <dd class="col-sm-8 fw-semibold">@CodigosFerreteria.Pago(Model.id_Pago)</dd>
+
+                        <dt class="col-sm-4 text-muted">Código Venta:</dt>
+                        <dd class="col-sm-8 fw-semibold">@CodigosFerreteria.Venta(Model.id_Venta)</dd>
+
+                        <dt class="col-sm-4 text-muted">Monto:</dt>
+                        <dd class="col-sm-8 fw-semibold text-success">@Model.Monto.ToString("N2") Bs</dd>
+
+                        <dt class="col-sm-4 text-muted">Método de Pago:</dt>
+                        <dd class="col-sm-8 fw-semibold">@Model.MetodoPago</dd>
+                    </dl>
+                    <div class="d-flex justify-content-between mt-4">
+                        <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4">Volver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

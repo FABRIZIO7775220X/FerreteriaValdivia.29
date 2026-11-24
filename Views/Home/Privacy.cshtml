@@ -1,6 +1,30 @@
 ﻿@{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Política de Privacidad y Términos";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container mt-4 mb-5">
+    <div class="card border-0 shadow-sm rounded-4 p-5 bg-white">
+        <h2 class="fw-bold mb-3">🔒 Política de Privacidad y Términos de Uso</h2>
+        <p class="text-muted">FerreteriaValdivia - Sistema de Gestión Comercial y Académica</p>
+        <hr class="my-4" />
+
+        <h5 class="fw-bold text-dark mt-3">1. Confidencialidad de la Información</h5>
+        <p class="text-secondary">
+            Los datos ingresados en este sistema (registros de clientes, empleados, cajas y transacciones de ventas) se utilizan exclusivamente con fines de control comercial, académico y demostrativo para el proyecto universitario.
+        </p>
+
+        <h5 class="fw-bold text-dark mt-4">2. Integridad de los Datos</h5>
+        <p class="text-secondary">
+            El sistema implementa Entity Framework Core y validaciones estrictas del lado del servidor y del cliente para garantizar la consistencia, integridad y seguridad de la base de datos relacional (MariaDB).
+        </p>
+
+        <h5 class="fw-bold text-dark mt-4">3. Seguridad del Acceso</h5>
+        <p class="text-secondary">
+            Las operaciones CRUD (Crear, Leer, Actualizar, Eliminar) y los reportes analíticos están diseñados bajo estándares limpios de arquitectura MVC en ASP.NET Core.
+        </p>
+
+        <div class="mt-4 pt-2">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-dark rounded-pill px-4 shadow-sm">Volver al Panel Principal</a>
+        </div>
+    </div>
+</div>

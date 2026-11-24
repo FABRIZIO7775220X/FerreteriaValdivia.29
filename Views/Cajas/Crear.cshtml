@@ -1,0 +1,71 @@
+@model FerreteriaValdivia.Models.Caja
+@using FerreteriaValdivia
+
+@{
+    ViewData["Title"] = "Nueva Apertura de Caja";
+    string codigoCajaSugerido = ViewBag.CodigoCajaSugerido as string ?? CodigosFerreteria.Caja(Model?.id_Caja > 0 ? Model.id_Caja : 1);
+    string codigoEmpleadoInicial = ViewBag.CodigoEmpleadoInicial as string
+        ?? (Model != null && Model.id_Empleado > 0 ? CodigosFerreteria.Empleado(Model.id_Empleado, "Cajero") : "");
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-4">
+                    <h2 class="fw-bold mb-3">Apertura de Caja</h2>
+                    <p class="text-muted mb-4">Complete los datos para iniciar un nuevo turno de caja.</p>
+
+                    <form asp-action="Crear" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <label for="codigoCajaIngresado" class="form-label fw-semibold">Código de Caja</label>
+                            <input type="text"
+                                   id="codigoCajaIngresado"
+                                   name="codigoCajaIngresado"
+                                   class="form-control rounded-3"
+                                   value="@codigoCajaSugerido"
+                                   placeholder="Ej. CAJ-0001 o 1" />
+                            <small class="text-muted">Formato: CAJ-0001 (también acepta el número).</small>
+                            <span asp-validation-for="id_Caja" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Fecha_Apertura" class="form-label fw-semibold">Fecha de Apertura</label>
+                            <input asp-for="Fecha_Apertura" class="form-control rounded-3" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                            <span asp-validation-for="Fecha_Apertura" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Monto_Inicial" class="form-label fw-semibold">Monto Inicial (Bs)</label>
+                            <input asp-for="Monto_Inicial" class="form-control rounded-3" type="number" step="0.01" placeholder="0.00" />
+                            <span asp-validation-for="Monto_Inicial" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="codigoEmpleadoIngresado" class="form-label fw-semibold">Código del Empleado Encargado</label>
+                            <input type="text"
+                                   id="codigoEmpleadoIngresado"
+                                   name="codigoEmpleadoIngresado"
+                                   class="form-control rounded-3"
+                                   value="@codigoEmpleadoInicial"
+                                   placeholder="Ej. CAJ-EMP-0001, CONT-EMP-0001 o EMP-0001" />
+                            <small class="text-muted">Acepta CAJ-EMP-0001, CONT-EMP-0001, EMP-0001 o el ID numérico.</small>
+                            <span asp-validation-for="id_Empleado" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4">Cancelar</a>
+                            <button type="submit" class="btn btn-dark rounded-pill px-4 shadow-sm">Registrar Apertura</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

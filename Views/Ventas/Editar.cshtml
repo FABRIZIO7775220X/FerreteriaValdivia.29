@@ -1,0 +1,84 @@
+@model FerreteriaValdivia.Models.Venta
+@using FerreteriaValdivia
+
+@{
+    ViewData["Title"] = "Editar Venta";
+    string codigoVentaActual = ViewBag.CodigoVentaActual as string
+        ?? (Model != null ? CodigosFerreteria.Venta(Model.id_Venta) : "");
+    string codigoClienteActual = ViewBag.CodigoClienteActual as string
+        ?? (Model != null ? CodigosFerreteria.Cliente(Model.id_Cliente) : "");
+    string codigoEmpleadoActual = ViewBag.CodigoEmpleadoActual as string
+        ?? (Model != null ? CodigosFerreteria.Empleado(Model.id_Empleado, ViewBag.CargoEmpleado as string ?? "") : "");
+}
+
+<div class="container mt-4">
+    <h2 class="fw-bold mb-3">Editar Venta</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Editar" method="post" class="card p-4 border-0 shadow-sm rounded-4">
+                <div asp-validation-summary="All" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="id_Venta" />
+
+                <div class="form-group mb-3">
+                    <label for="codigoVentaMostrado" class="control-label fw-bold">Código de Venta</label>
+                    <input type="text"
+                           id="codigoVentaMostrado"
+                           name="codigoVentaMostrado"
+                           class="form-control rounded-3 bg-light"
+                           value="@codigoVentaActual"
+                           readonly />
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Fecha" class="control-label fw-bold">Fecha</label>
+                    <input asp-for="Fecha" class="form-control rounded-3" type="date" />
+                    <span asp-validation-for="Fecha" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Hora" class="control-label fw-bold">Hora</label>
+                    <input asp-for="Hora" class="form-control rounded-3" type="time" step="1" />
+                    <span asp-validation-for="Hora" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Total" class="control-label fw-bold">Total (Bs.)</label>
+                    <input asp-for="Total" class="form-control rounded-3" type="number" step="0.01" />
+                    <span asp-validation-for="Total" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="codigoClienteIngresado" class="control-label fw-bold">Código Cliente</label>
+                    <input type="text"
+                           id="codigoClienteIngresado"
+                           name="codigoClienteIngresado"
+                           value="@codigoClienteActual"
+                           class="form-control rounded-3"
+                           placeholder="Ej. CLI-0001 o 1" />
+                    <span asp-validation-for="id_Cliente" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="codigoEmpleadoIngresado" class="control-label fw-bold">Código Empleado</label>
+                    <input type="text"
+                           id="codigoEmpleadoIngresado"
+                           name="codigoEmpleadoIngresado"
+                           value="@codigoEmpleadoActual"
+                           class="form-control rounded-3"
+                           placeholder="Ej. EMP-0001 o CAJ-EMP-0001 o 1" />
+                    <span asp-validation-for="id_Empleado" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-3">
+                    <input type="submit" value="Guardar Cambios" class="btn btn-dark rounded-pill px-4" />
+                    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 ms-2">Volver</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

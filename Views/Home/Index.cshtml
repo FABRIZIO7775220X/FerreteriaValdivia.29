@@ -1,8 +1,102 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Panel Principal - Ferretería Valdivia";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid mt-4">
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-light">
+        <h1 class="fw-bold">Ferretería Valdivia</h1>
+        <p class="text-muted mb-0">Panel integral de reportes comerciales y analítica en tiempo real de todas las entidades del sistema.</p>
+    </div>
+
+    <div class="row">
+        <!-- 1. Productos -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 h-100 border-start border-primary border-4">
+                <span class="text-uppercase text-muted small fw-bold">📦 Reporte: Productos</span>
+                <h5 class="fw-bold text-dark mt-2">@ViewBag.ProdMasVendido</h5>
+                <p class="text-muted small mb-0">Producto más vendido en el sistema.</p>
+            </div>
+        </div>
+
+        <!-- 2. Categorías -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 h-100 border-start border-success border-4">
+                <span class="text-uppercase text-muted small fw-bold">🏷️ Reporte: Categorías</span>
+                <h5 class="fw-bold text-dark mt-2">@ViewBag.CatPopular</h5>
+                <p class="text-muted small mb-0">Categoría con mayor cantidad de productos.</p>
+            </div>
+        </div>
+
+        <!-- 3. Proveedores -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 h-100 border-start border-warning border-4">
+                <span class="text-uppercase text-muted small fw-bold">🚚 Reporte: Proveedores</span>
+                <h5 class="fw-bold text-dark mt-2">@ViewBag.ProvFrecuente</h5>
+                <p class="text-muted small mb-0">Proveedor con más entregas y artículos.</p>
+            </div>
+        </div>
+
+        <!-- 4. Clientes -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 h-100 border-start border-info border-4">
+                <span class="text-uppercase text-muted small fw-bold">👥 Reporte: Clientes</span>
+                <h5 class="fw-bold text-dark mt-2">@ViewBag.ClienteTop</h5>
+                <p class="text-muted small mb-0">Cliente con mayor volumen de compras.</p>
+            </div>
+        </div>
+
+        <!-- 5. Empleados -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 h-100 border-start border-danger border-4">
+                <span class="text-uppercase text-muted small fw-bold">👨‍💼 Reporte: Empleados</span>
+                <h5 class="fw-bold text-dark mt-2">@ViewBag.EmpleadoTop</h5>
+                <p class="text-muted small mb-0">Colaborador con más ventas registradas.</p>
+            </div>
+        </div>
+
+        <!-- 6. Roles -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 h-100 border-start border-secondary border-4">
+                <span class="text-uppercase text-muted small fw-bold">🔐 Reporte: Roles</span>
+                <h5 class="fw-bold text-dark mt-2">@ViewBag.RolTop</h5>
+                <p class="text-muted small mb-0">Rol con más usuarios asignados.</p>
+            </div>
+        </div>
+
+        <!-- 7. Cajas -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 h-100 border-start border-dark border-4">
+                <span class="text-uppercase text-muted small fw-bold">💰 Reporte: Cajas</span>
+                <h5 class="fw-bold text-dark mt-2">@ViewBag.CajaTop</h5>
+                <p class="text-muted small mb-0">Caja con mayor monto recaudado.</p>
+            </div>
+        </div>
+
+        <!-- 8. Ventas -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 h-100 border-start border-primary border-4">
+                <span class="text-uppercase text-muted small fw-bold">🛒 Reporte: Ventas</span>
+                <h5 class="fw-bold text-dark mt-2">@ViewBag.VentaTop</h5>
+                <p class="text-muted small mb-0">Venta con el monto total más alto.</p>
+            </div>
+        </div>
+
+        <!-- 9. Detalle Venta -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 h-100 border-start border-success border-4">
+                <span class="text-uppercase text-muted small fw-bold">📋 Reporte: Detalle Venta</span>
+                <h5 class="fw-bold text-dark mt-2">@ViewBag.DetalleTop</h5>
+                <p class="text-muted small mb-0">Detalle con mayor cantidad de unidades.</p>
+            </div>
+        </div>
+
+        <!-- 10. Pagos -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 h-100 border-start border-warning border-4">
+                <span class="text-uppercase text-muted small fw-bold">💳 Reporte: Pagos</span>
+                <h5 class="fw-bold text-dark mt-2">@ViewBag.PagoTop</h5>
+                <p class="text-muted small mb-0">Método de pago preferido (ej. QR, efectivo).</p>
+            </div>
+        </div>
+    </div>
 </div>

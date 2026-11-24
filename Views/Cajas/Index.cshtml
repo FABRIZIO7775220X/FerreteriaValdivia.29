@@ -1,0 +1,78 @@
+@model IEnumerable<FerreteriaValdivia.Models.Caja>
+@using FerreteriaValdivia
+
+@{
+    ViewData["Title"] = "Gestión de Cajas";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0">Gestión de Cajas</h2>
+            <p class="text-muted mb-0">Control de aperturas, cierres y flujos de efectivo diarios.</p>
+        </div>
+        <div>
+            <a asp-action="Crear" class="btn btn-dark shadow-sm">+ Apertura de Caja</a>
+            <a asp-action="Reporte" class="btn btn-secondary shadow-sm">📊 Reporte Diario</a>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="ps-4">Código</th>
+                        <th>Fecha de Apertura</th>
+                        <th>Monto Inicial</th>
+                        <th>Monto Final</th>
+                        <th>Encargado</th>
+                        <th class="text-end pe-4">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            string codigoEmpleado = item.Empleado != null
+                                ? CodigosFerreteria.Empleado(item.id_Empleado, item.Empleado.Cargo)
+                                : CodigosFerreteria.Empleado(item.id_Empleado, "");
+
+                            <tr>
+                                <td class="ps-4 fw-semibold text-dark">@CodigosFerreteria.Caja(item.id_Caja)</td>
+                                <td>@item.Fecha_Apertura.ToShortDateString()</td>
+                                <td>@item.Monto_Inicial.ToString("N2") Bs</td>
+                                <td>
+                                    @(item.Monto_Final.HasValue ? item.Monto_Final.Value.ToString("N2") + " Bs" : "En caja (Abierta)")
+                                </td>
+                                <td>
+                                    <span class="fw-semibold">@codigoEmpleado</span>
+                                    @if (item.Empleado != null && !string.IsNullOrWhiteSpace(item.Empleado.Nombre))
+                                    {
+                                        <span class="text-muted">· @item.Empleado.Nombre</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">· Sin asignar</span>
+                                    }
+                                </td>
+                                <td class="text-end pe-4">
+                                    <a asp-action="Editar" asp-route-id="@item.id_Caja" class="btn btn-sm btn-outline-primary px-3 rounded-pill me-1">Editar</a>
+                                    <!-- Cambiado de Eliminar a Delete, manteniendo todo lo demás idéntico -->
+                                    <a asp-action="Delete" asp-route-id="@item.id_Caja" class="btn btn-sm btn-outline-danger px-3 rounded-pill">Eliminar</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">No hay registros de cajas todavía.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

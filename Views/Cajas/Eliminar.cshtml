@@ -1,0 +1,24 @@
+@model FerreteriaValdivia.Models.Caja
+@using FerreteriaValdivia
+@{ ViewData["Title"] = "Eliminar Registro de Caja"; }
+
+<div class="container mt-4">
+    <h2 class="fw-bold text-danger mb-3">Eliminar Registro de Caja</h2>
+    <h5 class="text-muted">¿Deseas eliminar esta apertura/cierre de caja?</h5>
+    <hr />
+    <div class="card p-4 border-0 shadow-sm rounded-4 col-md-6">
+        <dl class="row">
+            <dt class="col-sm-4 fw-bold">Código Caja:</dt>
+            <dd class="col-sm-8">@CodigosFerreteria.Caja(Model.id_Caja)</dd>
+            <dt class="col-sm-4 fw-bold">Monto Inicial:</dt>
+            <dd class="col-sm-8">@Model.Monto_Inicial Bs</dd>
+        </dl>
+        
+        <form asp-action="Eliminar" method="post">
+            <input type="hidden" asp-for="id_Caja" />
+            <!-- Botones de confirmar eliminación -->
+            <input type="submit" value="Eliminar" class="btn btn-danger rounded-pill px-4" />
+            <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 ms-2">Cancelar</a>
+        </form>
+    </div>
+</div>

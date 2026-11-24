@@ -1,0 +1,85 @@
+@model FerreteriaValdivia.Models.Pago
+@using FerreteriaValdivia
+
+@{
+    ViewData["Title"] = "Editar Pago";
+    string codigoPagoActual = ViewBag.CodigoPagoActual as string
+        ?? (Model != null ? CodigosFerreteria.Pago(Model.id_Pago) : "");
+    string codigoVentaActual = ViewBag.CodigoVentaActual as string
+        ?? (Model != null ? CodigosFerreteria.Venta(Model.id_Venta) : "");
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-4">
+                    <h2 class="fw-bold mb-3">Editar Pago</h2>
+                    <p class="text-muted mb-4">Modifique los datos del pago registrado.</p>
+
+                    <form asp-action="Edit" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <!-- Campo oculto para mantener el ID del pago al actualizar -->
+                        <input type="hidden" asp-for="id_Pago" />
+
+                        <div class="mb-3">
+                            <label for="codigoPagoMostrado" class="form-label fw-semibold">Código del Pago</label>
+                            <input type="text"
+                                   id="codigoPagoMostrado"
+                                   name="codigoPagoMostrado"
+                                   class="form-control rounded-3 bg-light"
+                                   value="@codigoPagoActual"
+                                   readonly />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="codigoVentaIngresado" class="form-label fw-semibold">Código de la Venta</label>
+                            <input type="text"
+                                   id="codigoVentaIngresado"
+                                   name="codigoVentaIngresado"
+                                   value="@codigoVentaActual"
+                                   class="form-control rounded-3"
+                                   type="text"
+                                   placeholder="Ej. VTA-0001 o 1" />
+                            <span asp-validation-for="id_Venta" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Monto" class="form-label fw-semibold">Monto (Bs)</label>
+                            <input asp-for="Monto" class="form-control rounded-3" type="number" step="0.01" />
+                            <span asp-validation-for="Monto" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="MetodoPago" class="form-label fw-semibold">Método de Pago</label>
+                            <input asp-for="MetodoPago" class="form-control rounded-3" type="text" />
+                            <span asp-validation-for="MetodoPago" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Fecha" class="form-label fw-semibold">Fecha</label>
+                            <input asp-for="Fecha" class="form-control rounded-3" type="date" />
+                            <span asp-validation-for="Fecha" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Hora" class="form-label fw-semibold">Hora</label>
+                            <input asp-for="Hora" class="form-control rounded-3" type="time" />
+                            <span asp-validation-for="Hora" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4">Cancelar</a>
+                            <button type="submit" class="btn btn-dark rounded-pill px-4 shadow-sm">Guardar Cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,37 +1,74 @@
 @model FerreteriaValdivia.Models.Empleado
+@using FerreteriaValdivia
 
 @{
     ViewData["Title"] = "Editar Empleado";
+    int idEmpleadoActual = Model?.IdEmpleado ?? 0;
+    int idRolActual = Model?.IdRol ?? 0;
+
+    string codigoEmpleadoActual = ViewBag.CodigoEmpleadoActual as string
+        ?? (Model != null ? CodigosFerreteria.Empleado(idEmpleadoActual, Model.Cargo ?? "") : "");
+    string codigoRolActual = ViewBag.CodigoRolActual as string
+        ?? (Model != null ? CodigosFerreteria.Rol(idRolActual) : "");
 }
 
 <div class="container mt-4">
-    <h2>Editar Empleado</h2>
+    <h2 class="fw-bold mb-3">Editar Empleado</h2>
     <hr />
-    <form asp-action="Editar">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="IdEmpleado" />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Editar" method="post" class="card p-4 border-0 shadow-sm rounded-4">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="IdEmpleado" />
 
-        <div class="form-group mb-3">
-            <label asp-for="Nombre" class="control-label">Nombre</label>
-            <input asp-for="Nombre" class="form-control" />
-            <span asp-validation-for="Nombre" class="text-danger"></span>
-        </div>
+                <div class="form-group mb-3">
+                    <label for="codigoEmpleadoMostrado" class="control-label fw-bold">Código Empleado</label>
+                    <input type="text"
+                           id="codigoEmpleadoMostrado"
+                           name="codigoEmpleadoMostrado"
+                           class="form-control rounded-3 bg-light"
+                           value="@codigoEmpleadoActual"
+                           readonly />
+                </div>
 
-        <div class="form-group mb-3">
-            <label asp-for="Cargo" class="control-label">Cargo</label>
-            <input asp-for="Cargo" class="form-control" />
-            <span asp-validation-for="Cargo" class="text-danger"></span>
-        </div>
+                <div class="form-group mb-3">
+                    <label for="codigoRolIngresado" class="control-label fw-bold">Código Rol</label>
+                    <input type="text"
+                           id="codigoRolIngresado"
+                           name="codigoRolIngresado"
+                           value="@codigoRolActual"
+                           class="form-control rounded-3"
+                           placeholder="Ej. ROL-01 o 1" />
+                    <span asp-validation-for="IdRol" class="text-danger"></span>
+                </div>
 
-        <div class="form-group mb-3">
-            <label asp-for="Telefono" class="control-label">Teléfono</label>
-            <input asp-for="Telefono" class="form-control" />
-            <span asp-validation-for="Telefono" class="text-danger"></span>
-        </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Nombre" class="control-label fw-bold">Nombre</label>
+                    <input asp-for="Nombre" class="form-control rounded-3" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
 
-        <div class="form-group">
-            <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
-            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                <div class="form-group mb-3">
+                    <label asp-for="Cargo" class="control-label fw-bold">Cargo</label>
+                    <input asp-for="Cargo" class="form-control rounded-3" />
+                    <span asp-validation-for="Cargo" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Telefono" class="control-label fw-bold">Teléfono</label>
+                    <input asp-for="Telefono" class="form-control rounded-3" />
+                    <span asp-validation-for="Telefono" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-3">
+                    <input type="submit" value="Guardar Cambios" class="btn btn-dark rounded-pill px-4" />
+                    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 ms-2">Cancelar</a>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

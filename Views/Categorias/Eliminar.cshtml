@@ -1,26 +1,29 @@
 @model FerreteriaValdivia.Models.Categoria
+@using FerreteriaValdivia
 
 @{
     ViewData["Title"] = "Eliminar Categoría";
+    int idCategoriaActual = Model?.IdCategoria ?? 0;
 }
 
 <div class="container mt-4">
-    <h2>Eliminar Categoría</h2>
-    <h3 class="text-danger">¿Estás seguro de que deseas eliminar este registro?</h3>
+    <h2 class="fw-bold text-danger mb-2">Eliminar Categoría</h2>
+    <h5 class="text-muted mb-3">¿Estás seguro de que deseas eliminar este registro?</h5>
     <hr />
-    <div>
-        <dl class="row">
-            <dt class="col-sm-2">ID</dt>
-            <dd class="col-sm-10">@Model.IdCategoria</dd>
+    
+    <div class="card p-4 border-0 shadow-sm rounded-4 col-md-6 bg-white">
+        <dl class="row mb-4">
+            <dt class="col-sm-4 fw-bold">Código:</dt>
+            <dd class="col-sm-8">@CodigosFerreteria.Categoria(idCategoriaActual)</dd>
 
-            <dt class="col-sm-2">Nombre</dt>
-            <dd class="col-sm-10">@Model.NombreCategoria</dd>
+            <dt class="col-sm-4 fw-bold">Nombre:</dt>
+            <dd class="col-sm-8">@(Model?.NombreCategoria ?? "")</dd>
         </dl>
 
-        <form asp-action="Eliminar">
+        <form asp-action="Eliminar" method="post">
             <input type="hidden" asp-for="IdCategoria" />
-            <input type="submit" value="Eliminar" class="btn btn-danger" /> |
-            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            <input type="submit" value="Sí, Eliminar" class="btn btn-danger rounded-pill px-4" />
+            <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 ms-2">Cancelar</a>
         </form>
     </div>
 </div>

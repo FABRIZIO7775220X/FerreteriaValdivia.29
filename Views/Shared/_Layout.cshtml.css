@@ -1,48 +1,90 @@
-﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+﻿/* =================================================================
+   FerreteriaValdivia - Estilos Globales y Diseño UI/UX Moderno
+   ================================================================= */
 
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+/* Configuración general del cuerpo de la aplicación */
+body {
+    background-color: #f8f9fa; /* Fondo gris claro muy suave y profesional */
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #333333;
 }
 
+/* Enlaces globales */
 a {
-  color: #0077cc;
+    color: #0b5ed7;
+    text-decoration: none;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+a:hover {
+    color: #0a58ca;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {                    
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+/* Estilos de la barra de navegación superior (Navbar) */
+.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+.navbar {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .1);
 }
 
+/* Tarjetas flotantes unificadas con sombra sutil y efecto hover */
+.card {
+    border: none !important;
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+    border-radius: 1rem !important; /* Equivalente a rounded-4 */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    background-color: #ffffff;
+}
+
+.card.shadow-sm:hover {
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .08) !important;
+}
+
+/* Estilos para tablas modernas dentro de tarjetas */
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+/* Botones con estilo tipo píldora corporativa */
+.btn-dark {
+    background-color: #212529;
+    border-color: #212529;
+}
+
+.btn-dark:hover {
+    background-color: #343a40;
+    border-color: #23272b;
+}
+
+/* Estilos de pie de página (Footer) */
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+    background-color: #212529 !important;
+    color: #adb5bd !important;
+}
+
+/* Utilidades de bordes y sombras personalizados */
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
-}
-
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+    font-size: 1rem;
+    line-height: inherit;
 }

@@ -1,0 +1,56 @@
+@model IEnumerable<FerreteriaValdivia.Models.Rol>
+@using FerreteriaValdivia
+
+@{
+    ViewData["Title"] = "Gestión de Roles";
+}
+
+<div class="container-fluid mt-4">
+    <!-- Encabezado del Módulo -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0">Gestión de Roles</h2>
+            <p class="text-muted mb-0">Control de perfiles de usuario y gobernabilidad de accesos.</p>
+        </div>
+        <div class="d-flex gap-2">
+            <a asp-action="Crear" class="btn btn-dark shadow-sm">+ Nuevo Rol</a>
+            <a asp-action="Reporte" class="btn btn-outline-secondary shadow-sm bg-white">📊 Analítica de Roles</a>
+        </div>
+    </div>
+
+    <!-- Tabla Principal de Roles -->
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="ps-4">Código Rol</th>
+                        <th>Nombre del Rol</th>
+                        <th class="text-end pe-4">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model) {
+                            <tr>
+                                <td class="ps-4 fw-semibold text-dark">@CodigosFerreteria.Rol(item.id_Rol)</td>
+                                <td class="fw-bold">@item.NombreRol</td>
+                                <td class="text-end pe-4">
+                                    <a asp-action="Edit" asp-route-id="@item.id_Rol" class="btn btn-sm btn-outline-primary px-3 rounded-pill">Editar</a>
+                                    <a asp-action="Eliminar" asp-route-id="@item.id_Rol" class="btn btn-sm btn-outline-danger px-3 rounded-pill ms-1">Eliminar</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" class="text-center text-muted py-4">No hay roles registrados todavía.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

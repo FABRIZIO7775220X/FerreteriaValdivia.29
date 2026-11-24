@@ -1,0 +1,64 @@
+@model IEnumerable<FerreteriaValdivia.Models.Pago>
+@using FerreteriaValdivia
+
+@{
+    ViewData["Title"] = "Analítica de Pagos";
+    int idPagoDestacado = 0;
+    if (ViewBag.IdPagoDestacado != null)
+    {
+        int.TryParse(ViewBag.IdPagoDestacado.ToString(), out idPagoDestacado);
+    }
+    int idVentaDestacada = 0;
+    if (ViewBag.IdVentaDestacada != null)
+    {
+        int.TryParse(ViewBag.IdVentaDestacada.ToString(), out idVentaDestacada);
+    }
+}
+
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0">📊 Analítica de Pagos y Transacciones</h2>
+            <p class="text-muted mb-0">Resumen y método de pago más frecuente del sistema.</p>
+        </div>
+        <div>
+            <a asp-action="Index" class="btn btn-outline-dark rounded-pill px-4">Volver al Listado</a>
+        </div>
+    </div>
+
+    <!-- Tarjetas de Métricas -->
+    <div class="row mb-4">
+        <div class="col-md-6 mb-3">
+            <div class="card border-0 shadow-sm rounded-4 p-4 border-start border-primary border-4">
+                <span class="text-uppercase text-muted small fw-bold">Método Más Utilizado</span>
+                <h3 class="fw-bold text-dark mt-2">@ViewBag.MetodoFrecuente</h3>
+                @if (idPagoDestacado > 0 || idVentaDestacada > 0)
+                {
+                    <p class="text-muted small mb-1">
+                        @if (idPagoDestacado > 0)
+                        {
+                            <span>Referencia: <strong>@CodigosFerreteria.Pago(idPagoDestacado)</strong></span>
+                        }
+                        @if (idPagoDestacado > 0 && idVentaDestacada > 0)
+                        {
+                            <span> · </span>
+                        }
+                        @if (idVentaDestacada > 0)
+                        {
+                            <span>Venta: <strong>@CodigosFerreteria.Venta(idVentaDestacada)</strong></span>
+                        }
+                    </p>
+                }
+                <p class="text-muted small mb-0">💳 Preferencia de cobro en transacciones de clientes</p>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="card border-0 shadow-sm rounded-4 p-4 border-start border-success border-4">
+                <span class="text-uppercase text-muted small fw-bold">Flujo Financiero</span>
+                <h3 class="fw-bold text-success mt-2">@ViewBag.MontoTotal.ToString("N2") Bs</h3>
+                <p class="text-muted small mb-0">Total Recaudado en @ViewBag.TotalPagos Transacciones</p>
+            </div>
+        </div>
+    </div>
+</div>

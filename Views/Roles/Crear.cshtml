@@ -1,0 +1,52 @@
+@model FerreteriaValdivia.Models.Rol
+@using FerreteriaValdivia
+
+@{
+    ViewData["Title"] = "Crear Rol";
+    string codigoSugerido = ViewBag.CodigoRolSugerido as string
+        ?? CodigosFerreteria.Rol(Model != null && Model.id_Rol > 0 ? Model.id_Rol : 1);
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-4">
+                    <h2 class="fw-bold mb-3">Registrar Nuevo Rol</h2>
+                    <p class="text-muted mb-4">Ingrese el código y nombre del nuevo rol.</p>
+
+                    <form asp-action="Crear" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <label for="codigoRolIngresado" class="form-label fw-semibold">Código del Rol</label>
+                            <input type="text"
+                                   id="codigoRolIngresado"
+                                   name="codigoRolIngresado"
+                                   class="form-control rounded-3"
+                                   value="@codigoSugerido"
+                                   placeholder="Ej. ROL-01 o 1" />
+                            <small class="text-muted">Formato: ROL-01 (también acepta el número).</small>
+                            <span asp-validation-for="id_Rol" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="NombreRol" class="form-label fw-semibold">Nombre del Rol</label>
+                            <input asp-for="NombreRol" class="form-control rounded-3" placeholder="Ej. Administrador, Cajero" />
+                            <span asp-validation-for="NombreRol" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4">Cancelar</a>
+                            <button type="submit" class="btn btn-dark rounded-pill px-4 shadow-sm">Guardar Rol</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

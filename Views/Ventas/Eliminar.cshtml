@@ -1,0 +1,36 @@
+@model FerreteriaValdivia.Models.Venta
+@using FerreteriaValdivia
+
+@{
+    ViewData["Title"] = "Eliminar Venta";
+}
+
+<div class="container mt-4">
+    <h2 class="fw-bold text-danger mb-3">Eliminar Venta</h2>
+    <h5 class="text-muted">¿Estás seguro de que deseas eliminar este registro de venta?</h5>
+    <hr />
+    
+    <div class="card p-4 border-0 shadow-sm rounded-4 col-md-6">
+        <dl class="row">
+            <dt class="col-sm-4 fw-bold">Código Venta:</dt>
+            <dd class="col-sm-8">@CodigosFerreteria.Venta(Model.id_Venta)</dd>
+
+            <dt class="col-sm-4 fw-bold">Fecha:</dt>
+            <dd class="col-sm-8">@Model.Fecha.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-4 fw-bold">Hora:</dt>
+            <dd class="col-sm-8">@Model.Hora</dd>
+
+            <dt class="col-sm-4 fw-bold">Total:</dt>
+            <dd class="col-sm-8 text-success fw-bold">Bs. @Model.Total</dd>
+        </dl>
+        
+        <form asp-action="Eliminar" method="post">
+            <input type="hidden" asp-for="id_Venta" />
+            <div class="form-group mt-3">
+                <input type="submit" value="Sí, Eliminar" class="btn btn-danger rounded-pill px-4" />
+                <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 ms-2">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>

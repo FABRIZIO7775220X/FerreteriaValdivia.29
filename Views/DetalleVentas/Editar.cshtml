@@ -1,0 +1,86 @@
+@model FerreteriaValdivia.Models.DetalleVenta
+@using FerreteriaValdivia
+
+@{
+    ViewData["Title"] = "Editar Detalle de Venta";
+    string codigoDetalleActual = ViewBag.CodigoDetalleActual as string
+        ?? (Model != null ? CodigosFerreteria.DetalleVenta(Model.id_DetalleVenta) : "");
+    string codigoVentaActual = ViewBag.CodigoVentaActual as string
+        ?? (Model != null ? CodigosFerreteria.Venta(Model.id_Venta) : "");
+    string codigoProductoActual = ViewBag.CodigoProductoActual as string
+        ?? (Model != null ? CodigosFerreteria.Producto(Model.id_Producto) : "");
+}
+
+<div class="container mt-4" style="max-width: 650px;">
+    <div class="card border-0 shadow-sm rounded-4 p-4">
+        <h2 class="fw-bold mb-1">Editar Detalle de Venta</h2>
+        <p class="text-muted mb-4">Modifique los datos del producto asociado a la transacción.</p>
+
+        <form asp-action="Editar">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <!-- Campo oculto para mantener el ID principal al actualizar -->
+            <input type="hidden" asp-for="id_DetalleVenta" />
+
+            <div class="mb-3">
+                <label for="codigoDetalleMostrado" class="form-label fw-semibold">Código de Detalle</label>
+                <input type="text"
+                       id="codigoDetalleMostrado"
+                       name="codigoDetalleMostrado"
+                       class="form-control rounded-3 bg-light"
+                       value="@codigoDetalleActual"
+                       readonly />
+            </div>
+
+            <div class="mb-3">
+                <label for="codigoVentaIngresado" class="form-label fw-semibold">Código de la Venta</label>
+                <input type="text"
+                       id="codigoVentaIngresado"
+                       name="codigoVentaIngresado"
+                       value="@codigoVentaActual"
+                       class="form-control rounded-3"
+                       placeholder="Ej. VTA-0001 o 1" />
+                <span asp-validation-for="id_Venta" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="codigoProductoIngresado" class="form-label fw-semibold">Código del Producto</label>
+                <input type="text"
+                       id="codigoProductoIngresado"
+                       name="codigoProductoIngresado"
+                       value="@codigoProductoActual"
+                       class="form-control rounded-3"
+                       placeholder="Ej. PRD-0001 o 1" />
+                <span asp-validation-for="id_Producto" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Cantidad" class="form-label fw-semibold">Cantidad</label>
+                <input asp-for="Cantidad" class="form-control rounded-3" />
+                <span asp-validation-for="Cantidad" class="text-danger"></span>
+            </div>
+
+            <!-- CAMPO DE PRECIO UNITARIO AGREGADO -->
+            <div class="mb-3">
+                <label asp-for="PrecioUnitario" class="form-label fw-semibold">Precio Unitario (Bs)</label>
+                <input asp-for="PrecioUnitario" class="form-control rounded-3" />
+                <span asp-validation-for="PrecioUnitario" class="text-danger"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Subtotal" class="form-label fw-semibold">Subtotal (Bs)</label>
+                <input asp-for="Subtotal" class="form-control rounded-3" />
+                <span asp-validation-for="Subtotal" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+                <a asp-action="Index" class="btn btn-outline-secondary px-4 rounded-3">Cancelar</a>
+                <button type="submit" class="btn btn-dark px-4 rounded-3">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
