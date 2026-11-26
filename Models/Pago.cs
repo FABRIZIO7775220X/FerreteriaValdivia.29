@@ -20,11 +20,11 @@ namespace FerreteriaValdivia.Models
 
         [Required]
         [Column("Fecha")]
-        public string Fecha { get; set; } = string.Empty;
+        public DateTime Fecha { get; set; }
 
         [Required]
         [Column("Hora")]
-        public string Hora { get; set; } = string.Empty;
+        public TimeSpan Hora { get; set; }
 
         [Required]
         [Column("id_Venta")]
